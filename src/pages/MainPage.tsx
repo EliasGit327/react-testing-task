@@ -1,9 +1,18 @@
 import React from "react";
+import Button from '@material-ui/core/Button';
+import { Card, CardContent, CardHeader } from "@material-ui/core";
 
 const MainPage = () => {
   return (
     <>
-      <h1>Main page works!</h1>
+        <Card style={{ margin: 15 }} elevation={1}>
+          <CardHeader title="Controls"></CardHeader>
+          <CardContent>
+            <Button variant="contained" color="primary">
+              Hello World
+            </Button>
+          </CardContent>
+        </Card>
     </>
   );
 };
