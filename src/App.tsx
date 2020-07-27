@@ -1,19 +1,18 @@
 import React from 'react';
 import './App.css';
-import MainPage from "./pages/MainPage";
 import HeaderCmp from "./components/HeaderCmp";
-import FirstVarCmp from "./components/FirstVarCmp";
+import { Provider } from 'react-redux';
+import { GameStore } from './stores/GameStore';
+import MainPage from "./pages/MainPage";
 
 const App = () => {
   return (
     <>
-      <header>
+      <Provider store={GameStore}>
         <HeaderCmp/>
-      </header>
-      <body>
-        {/*<MainPage/>*/}
-        <FirstVarCmp/>
-      </body>
+        <MainPage/>
+        {/*<FirstVarCmp/>*/}
+      </Provider>
     </>
   );
 }
