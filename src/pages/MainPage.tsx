@@ -27,7 +27,7 @@ const MainPage = () => {
         <Card style={{ margin: 15 }} elevation={3}>
           <CardHeader title="Controls"/>
           <CardActions>
-            <Button variant="contained" color="primary"
+            <Button variant="contained" color="primary" disabled={state.status}
                     onClick={() => GameStore.dispatch({type: "CHECK_CELLS"})}>
               Next generation
             </Button>
