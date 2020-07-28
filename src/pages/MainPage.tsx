@@ -1,9 +1,10 @@
 import React  from "react";
 import Button from '@material-ui/core/Button';
 import { Card, CardActions, CardContent, CardHeader } from "@material-ui/core";
-import { GameStore, IGameState } from "../stores/GameStore";
+import { GameStore } from "../stores/game-store/GameStore";
 import { useSelector } from "react-redux";
 import GridCmp from "../components/GridCmp";
+import IGameState from "../stores/game-store/IGameState";
 
 GameStore.subscribe(() => GameStore.getState().number);
 
@@ -29,7 +30,7 @@ const MainPage = () => {
           </CardActions>
         </Card>
 
-        <GridCmp/>
+        <GridCmp name="yolo"/>
     </>
   );
 };

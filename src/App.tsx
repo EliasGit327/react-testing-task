@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import HeaderCmp from "./components/HeaderCmp";
 import { Provider } from 'react-redux';
-import { GameStore } from './stores/GameStore';
+import { GameStore } from './stores/game-store/GameStore';
 import MainPage from "./pages/MainPage";
 
 const App = () => {

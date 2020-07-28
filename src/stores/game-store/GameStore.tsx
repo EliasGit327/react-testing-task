@@ -1,24 +1,17 @@
 import { createStore, Reducer, PreloadedState } from 'redux';
-
-export interface IGameState {
-  number: number;
-}
-
-interface IActionIncrement {
-  type: "INCREMENT_NUMBER";
-  payload: number;
-}
-
-interface IActionDecrement {
-  type: "DECREMENT_NUMBER";
-  payload: number;
-}
+import IActionIncrement from "./actions/IActionIncrement";
+import IActionDecrement from "./actions/IActionDecrement";
+import IGameState from "./IGameState";
 
 type GameAction = IActionIncrement | IActionDecrement;
+const gameInitialState: PreloadedState<IGameState> = {
+  number: 0,
+  grid:  [...Array(6)].map(e => Array(6).fill(false))
+};
 
-const gameInitialState: PreloadedState<IGameState> = { number: 0 };
+const gameReducer:
+  Reducer<IGameState, GameAction> = (state: IGameState | undefined, action: GameAction): IGameState => {
 
-const gameReducer: Reducer<IGameState, GameAction> = (state: IGameState | undefined, action: GameAction): IGameState => {
   if (!state) {
     return gameInitialState;
   }
@@ -34,4 +27,3 @@ const gameReducer: Reducer<IGameState, GameAction> = (state: IGameState | undefi
 }
 
 export const GameStore = createStore(gameReducer, gameInitialState);
-export const GameReducer = gameReducer;
