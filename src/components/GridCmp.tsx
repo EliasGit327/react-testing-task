@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Card, CardContent } from "@material-ui/core";
+import IGameState from "../stores/game-store/IGameState";
+import { useSelector } from "react-redux";
+import { GameStore } from "../stores/game-store/GameStore";
 
 interface IGridProps {
   array?: [][];
@@ -12,56 +15,44 @@ const GridCmp = (props: IGridProps) => {
     [false, false, false, false, false, false],
     [false, true, true, false, false, false],
   ]);
+  const state: IGameState = useSelector((state: IGameState) => state);
 
   return (
     <Card elevation={3} style={{ margin: 15 }}>
       <CardContent>
-        {drawGrid(array)}
+        {drawGrid(state.grid, (x, y) => {
+          GameStore.dispatch( { type: "SELECT_CELL", payload: { x, y } });
+        })}
       </CardContent>
     </Card>
   );
 };
 
-const drawGrid = (array: boolean[][]) => {
-  const size = 15;
-
+const drawGrid = (array: boolean[][], onClick?: (x: number, y: number) => void) => {
   return <div>
-    {array.map((row, rowIndex) =>
+    {
+      array.map(
+        (row, rowIndex) =>
       <div key={`${rowIndex}-col`} style={{ display: "flex", flexDirection: "row" }}>
         {row.map((element, index) =>
           <div key={`${index}-el`}
-               style={{ height: size, width: size, backgroundColor: element ? 'red' : 'gray', margin: 1 }}/>
+               style={{...styles.cell, backgroundColor: element ? 'red' : 'transparent'}}
+               onClick={() => onClick ? onClick(rowIndex, index) : null}/>
         )}
-      </div>)
+      </div>
+      )
     }
-
-    {/*  <div style={{display: "flex", flexDirection: "row"}}>*/}
-    {/*    <div style={{ height: size, width: size, backgroundColor: 'gray', margin: 1 }}/>*/}
-    {/*    <div style={{ height: size, width: size, backgroundColor: 'gray', margin: 1 }}/>*/}
-    {/*    <div style={{ height: size, width: size, backgroundColor: 'gray', margin: 1 }}/>*/}
-    {/*  </div>*/}
-    {/*  <div style={{display: "flex", flexDirection: "row"}}>*/}
-    {/*    <div style={{ height: size, width: size, backgroundColor: 'gray', margin: 1 }}/>*/}
-    {/*    <div style={{ height: size, width: size, backgroundColor: 'gray', margin: 1 }}/>*/}
-    {/*    <div style={{ height: size, width: size, backgroundColor: 'gray', margin: 1 }}/>*/}
-    {/*  </div>*/}
-    {/*  <div style={{display: "flex", flexDirection: "row"}}>*/}
-    {/*    <div style={{ height: size, width: size, backgroundColor: 'gray', margin: 1 }}/>*/}
-    {/*    <div style={{ height: size, width: size, backgroundColor: 'gray', margin: 1 }}/>*/}
-    {/*    <div style={{ height: size, width: size, backgroundColor: 'gray', margin: 1 }}/>*/}
-    {/*  </div>*/}
   </div>
-  //
-  // return <div style={{display: "flex", flexDirection: "row" }}>
-  //   {
-  //     newArray.map((row, rowIndex) =>
-  //       row.map((e, elementIndex) => <div key={elementIndex} style={{ height: size, width: size, backgroundColor: 'gray', margin: 1 }}/>)
-  //     )
-  //   }
-  // </div>
 }
 
-// <div key={i} style={{height: size, width: size, backgroundColor: 'gray', margin: 1}}/>)
+const styles = {
+  cell: {
+    height: 12,
+    width: 12,
+    margin: 0,
+    border: 'solid 1px'
+  }
+};
 
 
 export default GridCmp;

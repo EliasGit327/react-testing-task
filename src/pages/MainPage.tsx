@@ -27,6 +27,10 @@ const MainPage = () => {
                     onClick={() => GameStore.dispatch({type: "INCREMENT_NUMBER", payload: 1})}>
               +
             </Button>
+            <Button variant="contained" color="primary"
+                    onClick={() => GameStore.dispatch({type: "CHECK_CELLS"})}>
+              Try
+            </Button>
           </CardActions>
         </Card>
 
